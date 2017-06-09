@@ -1,14 +1,32 @@
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
+import { ROUTES } from './app.routes';
+
+// App modules
+import { MainViewModule } from './modules/main-view/main-view.module';
+import { LoginModule } from './modules/login/login.module';
+import { LayoutsModule } from './modules/layouts/layouts.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    // Angular modules
+    BrowserModule,
+
+    // Layout
+    LayoutsModule,
+
+    // Page
+    LoginModule,
+    MainViewModule,
+
+    // Configure Routes
+    RouterModule.forRoot(ROUTES)
+
   ],
   providers: [],
   bootstrap: [AppComponent]
