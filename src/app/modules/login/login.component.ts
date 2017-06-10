@@ -9,9 +9,9 @@ import { CognitoCallback } from './../../service/cognito.service';
     templateUrl: 'login.template.html'
 })
 export class loginComponent implements CognitoCallback, LoggedInCallback {
-    email: string;
-    password: string;
-    errorMessage: string;
+    public email: string;
+    public password: string;
+    public errorMessage: string;
 
     constructor(
         public router: Router,

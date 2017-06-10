@@ -1,7 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { ROUTES } from './app.routes';
@@ -21,7 +20,6 @@ import { UserLoginService, CognitoUtil } from './service/cognito.service';
   imports: [
     // Angular modules
     BrowserModule,
-    FormsModule,
 
     // Layout
     LayoutsModule,
