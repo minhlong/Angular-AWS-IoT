@@ -25,7 +25,7 @@ import { LayoutsModule } from './modules/layouts/layouts.module';
     MainViewModule,
 
     // Configure Routes
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES, { useHash: true })
 
   ],
   providers: [],
