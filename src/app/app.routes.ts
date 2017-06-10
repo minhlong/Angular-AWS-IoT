@@ -4,23 +4,31 @@ import { mainViewComponent } from './modules/main-view/main-view.component';
 import { basicComponent } from './modules/layouts/basic.component';
 import { blankComponent } from './modules/layouts/blank.component';
 
-export const ROUTES: Routes = [
-    // Main redirect
-    { path: '', redirectTo: 'mainView', pathMatch: 'full' },
-
-    // App views
-    {
-        path: '', component: basicComponent,
-        children: [
-            { path: 'mainView', component: mainViewComponent },
-        ]
-    },
+const noAuth: Routes = [
     {
         path: '', component: blankComponent,
         children: [
-            { path: 'login', component: loginComponent },
+            { path: 'login', component: loginComponent }
         ]
     },
+];
+
+const hasAuth: Routes = [
+    {
+        path: '', component: basicComponent,
+        children: [
+            { path: 'home', component: mainViewComponent }
+        ]
+    },
+];
+
+export const ROUTES: Routes = [
+    // Main redirect
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+    // App views
+    ...noAuth,
+    ...hasAuth,
 
     // Handle all other routes
     { path: '**', component: mainViewComponent }
