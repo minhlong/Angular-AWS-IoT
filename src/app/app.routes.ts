@@ -1,14 +1,17 @@
-import { loginComponent } from './modules/login/login.component';
 import { Routes } from "@angular/router";
+
 import { mainViewComponent } from './modules/main-view/main-view.component';
 import { basicComponent } from './modules/layouts/basic.component';
 import { blankComponent } from './modules/layouts/blank.component';
+import { LogoutComponent } from './modules/logout.component';
+import { loginComponent } from './modules/login/login.component';
 
 const noAuth: Routes = [
     {
         path: '', component: blankComponent,
         children: [
-            { path: 'login', component: loginComponent }
+            { path: 'login', component: loginComponent },
+            { path: 'logout', component: LogoutComponent }
         ]
     },
 ];
@@ -31,5 +34,5 @@ export const ROUTES: Routes = [
     ...hasAuth,
 
     // Handle all other routes
-    { path: '**', component: mainViewComponent }
+    { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];

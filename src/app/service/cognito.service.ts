@@ -4,7 +4,6 @@ import { environment } from "../../environments/environment";
  * Created by Vladimir Budilov
  */
 declare var AWSCognito: any;
-declare var AWS: any;
 export interface CognitoCallback {
     cognitoCallback(message: string, result: any): void;
 }
@@ -33,9 +32,6 @@ export class CognitoUtil {
     }
     getCurrentUser() {
         return this.getUserPool().getCurrentUser();
-    }
-    getCognitoIdentity(): string {
-        return AWS.config.credentials.identityId;
     }
     getAccessToken(callback: Callback): void {
         if (callback == null) {
@@ -130,25 +126,9 @@ export class UserLoginService {
         };
         console.log("UserLoginService: Params set...Authenticating the user");
         let cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
-        console.log("UserLoginService: config is " + AWS.config);
         cognitoUser.authenticateUser(authenticationDetails, {
             onSuccess: function (result) {
-                var logins = {}
-                logins['cognito-idp.' + CognitoUtil._REGION + '.amazonaws.com/' + CognitoUtil._USER_POOL_ID] = result.getIdToken().getJwtToken();
-                // Add the User's Id Token to the Cognito credentials login map.
-                AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                    IdentityPoolId: CognitoUtil._IDENTITY_POOL_ID,
-                    Logins: logins
-                });
-                console.log("UserLoginService: set the AWS credentials - " + JSON.stringify(AWS.config.credentials));
-                console.log("UserLoginService: set the AWSCognito credentials - " + JSON.stringify(AWSCognito.config.credentials));
-                AWS.config.credentials.get(function (err) {
-                    if (!err) {
-                        callback.cognitoCallback(null, result);
-                    } else {
-                        callback.cognitoCallback(err.message, null);
-                    }
-                });
+                callback.cognitoCallback(null, result);
             },
             onFailure: function (err) {
                 callback.cognitoCallback(err.message, null);

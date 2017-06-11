@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UserLoginService, LoggedInCallback } from '../../service/cognito.service';
-import { CognitoCallback } from './../../service/cognito.service';
+import { UserLoginService, LoggedInCallback, CognitoCallback } from '../../service/cognito.service';
 
 @Component({
     selector: 'login',
@@ -16,9 +15,7 @@ export class loginComponent implements CognitoCallback, LoggedInCallback {
     constructor(
         public router: Router,
         public userService: UserLoginService
-    ) {
-        console.log("LoginComponent constructor");
-    }
+    ) { }
 
     ngOnInit() {
         this.errorMessage = null;
@@ -47,12 +44,9 @@ export class loginComponent implements CognitoCallback, LoggedInCallback {
         if (message != null) { //error
             this.errorMessage = message;
             console.log("result: " + this.errorMessage);
-            if (this.errorMessage === 'User is not confirmed.') {
-                console.log("redirecting");
-                this.router.navigate(['/home/confirmRegistration', this.email]);
-            }
         } else { //success
-            this.router.navigate(['/securehome']);
+            console.log("result: ", result);
+            this.router.navigate(['/home']);
         }
     }
 

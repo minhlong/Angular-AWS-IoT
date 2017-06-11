@@ -1,10 +1,11 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { TopnavbarComponent } from "./topnavbar.component";
 
 @NgModule({
     declarations: [TopnavbarComponent],
-    imports: [BrowserModule],
+    imports: [BrowserModule, RouterModule],
     exports: [TopnavbarComponent],
 })
 

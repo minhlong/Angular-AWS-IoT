@@ -12,10 +12,12 @@ import { LayoutsModule } from './modules/layouts/layouts.module';
 
 // App Services
 import { UserLoginService, CognitoUtil } from './service/cognito.service';
+import { LogoutComponent } from './modules/logout.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LogoutComponent
   ],
   imports: [
     // Angular modules

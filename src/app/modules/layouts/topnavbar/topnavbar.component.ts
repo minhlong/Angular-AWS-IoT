@@ -8,10 +8,8 @@ declare var jQuery: any;
     templateUrl: 'topnavbar.template.html'
 })
 export class TopnavbarComponent {
-
     toggleNavigation(): void {
         jQuery("body").toggleClass("mini-navbar");
         smoothlyMenu();
     }
-
 }
