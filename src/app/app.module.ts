@@ -1,34 +1,38 @@
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ROUTES } from './app.routes';
 
 // App modules
-import { MainViewModule } from './modules/main-view/main-view.module';
-import { LoginModule } from './modules/login/login.module';
 import { LayoutsModule } from './modules/layouts/layouts.module';
+
+// App components
+import { loginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout.component';
+import { mainViewComponent } from './components/main-view/main-view.component';
 
 // App Services
 import { UserLoginService, CognitoUtil } from './service/cognito.service';
-import { LogoutComponent } from './modules/logout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    mainViewComponent,
+    loginComponent,
     LogoutComponent
   ],
   imports: [
     // Angular modules
     BrowserModule,
+    HttpModule,
+    FormsModule,
 
     // Layout
     LayoutsModule,
-
-    // Page
-    LoginModule,
-    MainViewModule,
 
     // Configure Routes
     RouterModule.forRoot(ROUTES, { useHash: true })

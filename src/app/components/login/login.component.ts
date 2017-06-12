@@ -22,7 +22,7 @@ export class loginComponent implements CognitoCallback, LoggedInCallback {
 
         // Checking if the user is already authenticated.
         // If so, then redirect to the secure site
-        this.userService.isAuthenticated(this);
+        // this.userService.isAuthenticated(this);
     }
 
     onLogin() {

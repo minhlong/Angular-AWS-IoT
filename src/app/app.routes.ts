@@ -1,10 +1,10 @@
 import { Routes } from "@angular/router";
 
-import { mainViewComponent } from './modules/main-view/main-view.component';
 import { basicComponent } from './modules/layouts/basic.component';
 import { blankComponent } from './modules/layouts/blank.component';
-import { LogoutComponent } from './modules/logout.component';
-import { loginComponent } from './modules/login/login.component';
+import { LogoutComponent } from './components/logout.component';
+import { loginComponent } from './components/login/login.component';
+import { mainViewComponent } from './components/main-view/main-view.component';
 
 const noAuth: Routes = [
     {
