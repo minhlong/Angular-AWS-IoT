@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { UserLoginService, LoggedInCallback, CognitoCallback } from '../../services/cognito.service';
+import { LoggedInCallback, CognitoAuthService } from './../../services/cognito-auth.service';
 
 @Component({
   selector: 'app-login-component',
   templateUrl: 'login.template.html'
 })
 
-export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit {
+export class LoginComponent implements LoggedInCallback, OnInit {
   public email: string;
   public password: string;
   public errorMessage: string;
 
   constructor(
     public router: Router,
-    public userService: UserLoginService
+    public authService: CognitoAuthService
   ) { }
 
   ngOnInit() {
@@ -23,16 +22,12 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
     // Checking if the user is already authenticated.
     // If so, then redirect to the secure site
-    // this.userService.isAuthenticated(this);
+    this.authService.isAuthenticated(this);
   }
 
   onLogin() {
-    if (this.email == null || this.password == null) {
-      this.errorMessage = 'All fields are required';
-      return;
-    }
     this.errorMessage = null;
-    this.userService.authenticate(this.email, this.password, this);
+    this.authService.authenticate(this.email, this.password, this);
   }
 
   /**
@@ -42,11 +37,9 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
    * @param result
    */
   cognitoCallback(message: string, result: any) {
-    if (message != null) { // error
+    if (message != null) {
       this.errorMessage = message;
-      console.log('result: ' + this.errorMessage);
-    } else { // success
-      console.log('result: ', result);
+    } else {
       this.router.navigate(['/home']);
     }
   }

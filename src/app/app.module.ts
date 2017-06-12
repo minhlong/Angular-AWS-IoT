@@ -16,7 +16,7 @@ import { LogoutComponent } from './components/logout.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
 
 // App Services
-import { UserLoginService, CognitoUtil } from './services/cognito.service';
+import { CognitoAuthService } from './services/cognito-auth.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { UserLoginService, CognitoUtil } from './services/cognito.service';
     RouterModule.forRoot(ROUTES, { useHash: true })
 
   ],
-  providers: [CognitoUtil, UserLoginService],
+  providers: [CognitoAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

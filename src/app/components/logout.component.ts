@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { LoggedInCallback, UserLoginService } from './../services/cognito.service';
+import { LoggedInCallback, CognitoAuthService } from './../services/cognito-auth.service';
 
 @Component({
   selector: 'app-logout',
@@ -11,14 +10,14 @@ export class LogoutComponent implements LoggedInCallback {
 
   constructor(
     public router: Router,
-    public userService: UserLoginService
+    public authService: CognitoAuthService
   ) {
-    this.userService.isAuthenticated(this)
+    this.authService.isAuthenticated(this)
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.userService.logout();
+      this.authService.logout();
     }
 
     this.router.navigate(['/login']);
