@@ -21,11 +21,16 @@ export class LoginComponent implements LoggedInCallback, OnInit {
     this.errorMessage = null;
 
     // Checking if the user is already authenticated.
-    // If so, then redirect to the secure site
+    // If so, then redirect to the secure  site
     this.authService.isAuthenticated(this);
   }
 
   onLogin() {
+    if (this.email == null || this.password == null) {
+      this.errorMessage = 'All fields are required';
+      return;
+    }
+
     this.errorMessage = null;
     this.authService.authenticate(this.email, this.password, this);
   }

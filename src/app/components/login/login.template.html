@@ -9,10 +9,10 @@
     </div>
     <form class="m-t" role="form" action="#">
       <div class="form-group">
-        <input type="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Username or Email">
+        <input type="text" [(ngModel)]="email" required [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Username or Email">
       </div>
       <div class="form-group">
-        <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Password">
+        <input type="password" [(ngModel)]="password" required [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Password">
       </div>
       <button type="submit" (click)="onLogin()" class="btn btn-primary block full-width m-b">Login</button>
     </form>
