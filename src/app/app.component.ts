@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { correctHeight, detectBody } from './app.helpers';
 
 declare var jQuery: any;
@@ -8,10 +8,10 @@ declare var jQuery: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     // Run correctHeight function on load and resize window event
-    jQuery(window).bind("load resize", function () {
+    jQuery(window).bind('load resize', function () {
       correctHeight();
       detectBody();
     });

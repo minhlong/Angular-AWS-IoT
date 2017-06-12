@@ -11,18 +11,18 @@ import { ROUTES } from './app.routes';
 import { LayoutsModule } from './modules/layouts/layouts.module';
 
 // App components
-import { loginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout.component';
-import { mainViewComponent } from './components/main-view/main-view.component';
+import { MainViewComponent } from './components/main-view/main-view.component';
 
 // App Services
-import { UserLoginService, CognitoUtil } from './service/cognito.service';
+import { UserLoginService, CognitoUtil } from './services/cognito.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    mainViewComponent,
-    loginComponent,
+    MainViewComponent,
+    LoginComponent,
     LogoutComponent
   ],
   imports: [

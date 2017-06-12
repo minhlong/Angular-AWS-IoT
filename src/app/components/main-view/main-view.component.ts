@@ -1,17 +1,17 @@
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
 
-import { LoggedInCallback, UserLoginService, CognitoUtil } from '../../service/cognito.service';
+import { LoggedInCallback, UserLoginService, CognitoUtil } from '../../services/cognito.service';
 
 @Component({
-    selector: 'mianView',
+    selector: 'app-main',
     templateUrl: 'main-view.template.html'
 })
 
-export class mainViewComponent implements LoggedInCallback {
+export class MainViewComponent implements LoggedInCallback, OnInit {
     private commentsUrl;
 
     constructor(

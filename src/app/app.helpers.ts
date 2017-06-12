@@ -1,3 +1,5 @@
+import { environment } from './../environments/environment';
+
 /*
  * Js Helpers:
  *
@@ -5,32 +7,31 @@
  * detectBody() - detect windows size
  * smoothlyMenu() - add smooth fade in/out on navigation show/hide
  */
-
-declare var jQuery: any;
+declare const jQuery: any;
 
 export function correctHeight() {
 
-  var pageWrapper = jQuery('#page-wrapper');
-  var navbarHeight = jQuery('nav.navbar-default').height();
-  var wrapperHeigh = pageWrapper.height();
+  const pageWrapper = jQuery('#page-wrapper');
+  const navbarHeight = jQuery('nav.navbar-default').height();
+  const wrapperHeigh = pageWrapper.height();
 
   if (navbarHeight > wrapperHeigh) {
-    pageWrapper.css("min-height", navbarHeight + "px");
+    pageWrapper.css('min-height', navbarHeight + 'px');
   }
 
   if (navbarHeight < wrapperHeigh) {
     if (navbarHeight < jQuery(window).height()) {
-      pageWrapper.css("min-height", jQuery(window).height() + "px");
+      pageWrapper.css('min-height', jQuery(window).height() + 'px');
     } else {
-      pageWrapper.css("min-height", navbarHeight + "px");
+      pageWrapper.css('min-height', navbarHeight + 'px');
     }
   }
 
   if (jQuery('body').hasClass('fixed-nav')) {
     if (navbarHeight > wrapperHeigh) {
-      pageWrapper.css("min-height", navbarHeight + "px");
+      pageWrapper.css('min-height', navbarHeight + 'px');
     } else {
-      pageWrapper.css("min-height", jQuery(window).height() - 60 + "px");
+      pageWrapper.css('min-height', jQuery(window).height() - 60 + 'px');
     }
   }
 }
@@ -61,5 +62,14 @@ export function smoothlyMenu() {
   } else {
     // Remove all inline style from jquery fadeIn function to reset menu state
     jQuery('#side-menu').removeAttr('style');
+  }
+}
+
+/*
+ * Write Log to console on Dev Mod:
+ */
+export function consoleLog(msg) {
+  if (!environment.production) {
+    console.log(msg)
   }
 }
