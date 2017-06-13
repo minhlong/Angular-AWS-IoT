@@ -51,19 +51,26 @@
               <td>{{thingName}}</td>
             </tr>
             <tr>
+              <th>IoT Policy</th>
+              <td>{{iotPolicy}}</td>
+            </tr>
+            <tr>
+              <th>Action</th>
+              <td>
+                <button (click)="attachIoTPolicy()" class="btn btn-sm btn-primary" type="button">Attach Policy</button>
+                <button (click)="detachIoTPolicy()" class="btn btn-sm btn-danger" type="button">Detach Policy</button>
+              </td>
+            </tr>
+            <tr>
               <th>Shadow Sate</th>
               <td>{{iotData | json}}</td>
             </tr>
             <tr>
-              <th>Shadow Json</th>
+              <th>
+                <button (click)="updateIoT()" class="btn btn-sm btn-success" type="button">Update</button>
+              </th>
               <td>
                 <input type="text" [(ngModel)]="thingShadow" class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <th></th>
-              <td>
-                <button (click)="updateIoT()" class="btn btn-sm btn-success" type="button">Update</button>
               </td>
             </tr>
           </tbody>

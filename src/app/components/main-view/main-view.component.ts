@@ -20,6 +20,7 @@ export class MainViewComponent implements LoggedInCallback, OnInit {
 
     apiIoT: String = 'a243uabiez3zv6.iot.us-east-1.amazonaws.com'
     thingName: String = 'HMLong-Thing1'
+    iotPolicy: String = 'HMLong-Policy1'
     thingShadow: any = '{ "state": { "desired" : { "color" : { "r" : 10 }, "engine" : "ON" } } }'
     iotData: any
 
@@ -49,7 +50,7 @@ export class MainViewComponent implements LoggedInCallback, OnInit {
             endpoint: this.apiIoT
         });
         const that = this
-        this.iotdata.getThingShadow({ thingName: this.thingName }, function(err, data) {
+        this.iotdata.getThingShadow({ thingName: this.thingName }, function (err, data) {
             if (err) {
                 console.log(err);
             } else {
@@ -70,9 +71,42 @@ export class MainViewComponent implements LoggedInCallback, OnInit {
         }
     }
 
+    attachIoTPolicy() {
+        const iot = new AWS.Iot();
+        const params = {
+            policyName: this.iotPolicy,
+            principal: AWS.config.credentials._identityId
+        };
+        console.log(params)
+        iot.attachPrincipalPolicy(params, function (err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data);
+            }
+        });
+    }
+
+    detachIoTPolicy() {
+        const iot = new AWS.Iot();
+        const params = {
+            policyName: this.iotPolicy,
+            principal: AWS.config.credentials._identityId
+        };
+        console.log(params)
+        iot.detachPrincipalPolicy(params, function (err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data);
+            }
+        });
+    }
+
     /**
      * Update IoT Shadow
      * Ref https://stackoverflow.com/questions/40104559/forbidden-exception-on-accessing-aws-iot-using-amazon-cognito
+     * Ref http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Iot.html#attachPrincipalPolicy-property
      */
     updateIoT() {
         const options = {
@@ -80,7 +114,7 @@ export class MainViewComponent implements LoggedInCallback, OnInit {
             payload: this.thingShadow
         };
         const that = this
-        this.iotdata.updateThingShadow(options, function(err, data) {
+        this.iotdata.updateThingShadow(options, function (err, data) {
             if (err) {
                 console.log(err);
             } else {
