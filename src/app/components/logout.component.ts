@@ -15,6 +15,12 @@ export class LogoutComponent implements LoggedInCallback {
     this.authService.isAuthenticated(this)
   }
 
+  /**
+   * Callback after check authentication on Init time
+   *
+   * @param message
+   * @param isLoggedIn
+   */
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
       this.authService.logout();

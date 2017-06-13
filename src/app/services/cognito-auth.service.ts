@@ -3,7 +3,6 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { environment } from '../../environments/environment';
 
 declare const AWS: any;
@@ -18,20 +17,19 @@ export interface LoggedInCallback {
 
 @Injectable()
 export class CognitoAuthService {
-  token: any;
-  userData: any;
+  static token: any;
+  static userCredentialData: any;
 
   /************ RESOURCE IDENTIFIERS *************/
-  poolData = {
+  private poolData = {
     UserPoolId: environment.userPoolId, // CognitoUserPool
-    ClientId: environment.clientId, // CognitoUserPoolClient
-    Paranoia: 7
+    ClientId: environment.clientId // CognitoUserPoolClient
   };
-  identityPool: string = environment.identityPoolId; // CognitoIdentityPool
-  region: string = environment.region; // Region Matching CognitoUserPool region
+  private identityPool: string = environment.identityPoolId; // CognitoIdentityPool
+  private region: string = environment.region; // Region Matching CognitoUserPool region
   /*********************************************/
 
-  constructor(private _http: Http) {
+  constructor() {
     AWS.config.update({
       region: this.region,
       credentials: new AWS.CognitoIdentityCredentials({
@@ -42,8 +40,25 @@ export class CognitoAuthService {
     AWSCognito.config.update({ accessKeyId: 'null', secretAccessKey: 'null' });
   }
 
-  getUserPool() {
+  private getUserPool() {
     return new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(this.poolData);
+  }
+
+  /**
+   * Update information for use in another services
+   * Token, Credentials,...
+   */
+  private updateUserData(session: any) {
+    // Update token
+    CognitoAuthService.token = session.getIdToken().getJwtToken()
+
+    // Update AWS Credentials for use in another services
+    const cognitoParams = {
+      IdentityPoolId: this.identityPool,
+      Logins: {}
+    };
+    cognitoParams.Logins['cognito-idp.' + this.region + '.amazonaws.com/' + this.poolData.UserPoolId] = CognitoAuthService.token;
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials(cognitoParams);
   }
 
   /**
@@ -65,9 +80,13 @@ export class CognitoAuthService {
     });
 
     // After check, the result (suc/err) will be callback
+    const that = this;
     cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: function (result) {
-        callback.cognitoCallback(null, result);
+      onSuccess: function (session) {
+        callback.cognitoCallback(null, session);
+
+        // Update information for use in another services
+        that.updateUserData(session);
       },
       onFailure: function (err) {
         callback.cognitoCallback(err, null);
@@ -83,11 +102,15 @@ export class CognitoAuthService {
     const userPool = this.getUserPool();
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser != null) {
+      const that = this;
       cognitoUser.getSession(function (err, session) {
         if (err) {
           callback.isLoggedIn(err, false);
         } else {
           callback.isLoggedIn(err, session.isValid());
+
+          // Update information for use in another services
+          that.updateUserData(session);
         }
       });
     } else {

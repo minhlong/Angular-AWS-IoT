@@ -1,38 +1,74 @@
 <div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="text-center m-t-lg">
-                <h1>
-                    Welcome in Virtium
-                </h1>
-                <small>
-                    It is an application skeleton for a typical web app. You can use it to quickly bootstrap your webapp projects and dev environment.
-                </small>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="text-center m-t-lg">
+        <h1>
+          Welcome in Virtium
+        </h1>
+        <small>It is an application skeleton for a typical web app. You can use it to quickly bootstrap your webapp projects and dev environment.</small>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-lg-3">
-            Token
-        </div>
-        <div class="col-lg-9">
-            {{token}}
-        </div>
+  </div>
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      User Information
     </div>
-    <div class="row">
-        <div class="col-lg-3">
-            API Locations
-        </div>
-        <div class="col-lg-9">
-            {{apiURL}}
-        </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <th>Token</th>
+              <td>{{token}}</td>
+            </tr>
+            <tr>
+              <th>API_URL</th>
+              <td>{{apiURL}}</td>
+            </tr>
+            <tr>
+              <th>Data_Response</th>
+              <td>{{locationData | json}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-lg-3">
-            Data
-        </div>
-        <div class="col-lg-9">
-            {{locationData | json}}
-        </div>
+  </div>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      IoT Device Shadow
     </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <th>RestFUL API URL</th>
+              <td>{{apiIoT}}</td>
+            </tr>
+            <tr>
+              <th>Thing Name</th>
+              <td>{{thingName}}</td>
+            </tr>
+            <tr>
+              <th>Shadow Sate</th>
+              <td>{{iotData | json}}</td>
+            </tr>
+            <tr>
+              <th>Shadow Json</th>
+              <td>
+                <input type="text" [(ngModel)]="thingShadow" class="form-control">
+              </td>
+            </tr>
+            <tr>
+              <th></th>
+              <td>
+                <button (click)="updateIoT()" class="btn btn-sm btn-success" type="button">Update</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

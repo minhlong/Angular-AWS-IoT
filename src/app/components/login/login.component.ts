@@ -25,6 +25,9 @@ export class LoginComponent implements LoggedInCallback, OnInit {
     this.authService.isAuthenticated(this);
   }
 
+  /**
+   * User submit login form
+   */
   onLogin() {
     if (this.email == null || this.password == null) {
       this.errorMessage = 'All fields are required';
