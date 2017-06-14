@@ -1,10 +1,10 @@
-import { VirtNgPage } from './app.po';
+import { AWSIoTDemoPage } from './app.po';
 
-describe('virt-ng App', () => {
-  let page: VirtNgPage;
+describe('aws-iot-demo App', () => {
+  let page: AWSIoTDemoPage;
 
   beforeEach(() => {
-    page = new VirtNgPage();
+    page = new AWSIoTDemoPage();
   });
 
   it('should display welcome message', done => {
