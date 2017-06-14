@@ -1,7 +1,7 @@
 <div class="middle-box text-center loginscreen  animated fadeInDown">
   <div>
     <div>
-      <img alt="Logo login@2x" height="50px" width="50px" src="/assets/images/virtium-logo-none-bg.png">
+      <img alt="Logo login@2x" height="50px" width="50px" src="assets/images/virtium-logo-none-bg.png">
     </div>
     <h2>Virtium IoT</h2>
     <div *ngIf="errorMessage!=null" class="alert alert-danger">
@@ -14,7 +14,7 @@
       <div class="form-group">
         <input type="password" [(ngModel)]="password" required [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Password">
       </div>
-      <button type="submit" (click)="onLogin()" class="btn btn-primary block full-width m-b">Login</button>
+      <button *ngIf="errorMessage != 'loading ...'" type="submit" (click)="onLogin()" class="btn btn-primary block full-width m-b">Login</button>
     </form>
   </div>
 </div>

@@ -34,7 +34,7 @@ export class LoginComponent implements LoggedInCallback, OnInit {
       return;
     }
 
-    this.errorMessage = null;
+    this.errorMessage = 'loading ...';
     this.authService.authenticate(this.email, this.password, this);
   }
 
