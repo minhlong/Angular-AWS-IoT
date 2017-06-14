@@ -27,7 +27,7 @@ Về phần đăng nhập, mình không cần phải tạo database, rồi nào 
 ![Frontend-AWS](https://image.slidesharecdn.com/awsjune2016webinarseries-gettingstartedwithyouruserpoolsinamazoncognito-160701191827/95/getting-started-with-your-user-pools-in-amazon-cognito-aws-june-2016-webinar-series-14-638.jpg?cb=1467400953)
 
 > `AWS Cognito` sẽ giúp bạn authenticate và đồng bộ dữ liệu. Nó cung cấp 2 dịch vụ "Federate" và "User Pool"
-> - AWS Cognito Federate` cho phép bạn cấu hình để bạn có thể đăng nhập qua dịch vụ khác (Authenticate Provider) như Facebook, Google... hoặc của chính bạn. Thêm vào đó nó cũng cho phép bạn authenticate qua cấu hình của bạn ngay trên AWS thông qua `AWS Cognito User Pool`
+> - `AWS Cognito Federate` cho phép bạn cấu hình để bạn có thể đăng nhập qua dịch vụ khác (Authenticate Provider) như Facebook, Google... hoặc của chính bạn. Thêm vào đó nó cũng cho phép bạn authenticate qua cấu hình của bạn ngay trên AWS thông qua `AWS Cognito User Pool`
 > - `AWS Cognito User Pool` cho phép cấu hình thông tin đăng nhập (attribute) như Email, Password, Phone... Password Rule cho phép bạn tùy chỉnh như chiều dài tối thiểu, phải có kí tự đặc biệt... Verification cho phép bạn xác thực thông tin người dùng (đăng ký) thông qua Email, SMS (Phone)... với các template có thể customize được... Và còn nhiều thứ khác nữa như tạo nhóm...
 > - **Lưu ý**: AWS Cognito được biết đến với thế mạnh đồng bộ dữ liệu. Nhưng trong ứng dụng của mình chưa cần đến nên mình không đi sâu vào phần này
 
