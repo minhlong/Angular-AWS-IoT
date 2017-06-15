@@ -2,7 +2,7 @@ Source Code: [https://github.com/minhlong/Angular4-AWS-Cognito-IAM-API-Lambda-Io
 
 # Bài Toán
 
-Mình đang làm dự án về `IoT (Internet of ThingS)`, công ty hiện đã làm xong thiết bị và bây giờ họ muốn xây dựng một hệ thống để quản-lý/sử-dụng thiết bị đó. Nhưng nếu phải xây dựng từ đầu thì mất rất nhiều chi phí... Nào là máy chủ, lập trình viên, chi phí bảo trì ... Và có một giải pháp lúc này là sử dụng `Amazon Web Services (AWS)`
+Mình đang làm dự án về `IoT (Internet of ThingS)`, công ty hiện đã làm xong thiết bị và bây giờ họ muốn xây dựng một hệ thống để quản-lý/sử-dụng thiết bị đó. Nhưng nếu phải xây dựng từ đầu thì mất rất nhiều chi phí... Nào là máy chủ, lập trình viên, chi phí bảo trì... Và có một giải pháp lúc này là sử dụng `Amazon Web Services (AWS)`
 
 ![Frontend-AWS](https://camo.githubusercontent.com/793681e54a8c3ebdaac694bcba8eb56e1a9f7d22/68747470733a2f2f6432393038713031766f6d7162322e636c6f756466726f6e742e6e65742f316236343533383932343733613436376430373337326434356562303561626332303331363437612f323031372f30362f30372f696d6167653030392e706e67)
 
