@@ -85,6 +85,9 @@ export class CognitoAuthService {
       onSuccess: function (session) {
         callback.cognitoCallback(null, session);
 
+        // Save token for JWT
+        localStorage.setItem('token', session.getIdToken().getJwtToken());
+
         // Update information for use in another services
         that.updateUserData(session);
       },
@@ -122,7 +125,10 @@ export class CognitoAuthService {
    * Logout
    */
   logout() {
-    const userPool = this.getUserPool();
-    userPool.getCurrentUser().signOut();
+    // Remove JWT Token
+    localStorage.removeItem('token');
+
+    // const userPool = this.getUserPool();
+    // userPool.getCurrentUser().signOut();
   }
 }

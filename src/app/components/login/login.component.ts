@@ -1,28 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoggedInCallback, CognitoAuthService } from './../../services/cognito-auth.service';
+import { Callback, CognitoAuthService } from './../../services/cognito-auth.service';
 
 @Component({
   selector: 'app-login-component',
   templateUrl: 'login.template.html'
 })
 
-export class LoginComponent implements LoggedInCallback, OnInit {
+export class LoginComponent implements OnInit, Callback {
   public email: string;
   public password: string;
   public errorMessage: string;
 
   constructor(
     public router: Router,
-    public authService: CognitoAuthService
+    public authService: CognitoAuthService,
   ) { }
 
   ngOnInit() {
     this.errorMessage = null;
-
-    // Checking if the user is already authenticated.
-    // If so, then redirect to the secure  site
-    this.authService.isAuthenticated(this);
+    this.authService.logout();
   }
 
   /**
@@ -48,18 +45,6 @@ export class LoginComponent implements LoggedInCallback, OnInit {
     if (message != null) {
       this.errorMessage = message;
     } else {
-      this.router.navigate(['/home']);
-    }
-  }
-
-  /**
-   * Callback after check authentication on Init time
-   *
-   * @param message
-   * @param isLoggedIn
-   */
-  isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
       this.router.navigate(['/home']);
     }
   }

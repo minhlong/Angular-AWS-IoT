@@ -6,26 +6,12 @@ import { LoggedInCallback, CognitoAuthService } from './../services/cognito-auth
   selector: 'app-logout',
   template: ''
 })
-export class LogoutComponent implements LoggedInCallback {
-
+export class LogoutComponent {
   constructor(
     public router: Router,
     public authService: CognitoAuthService
   ) {
-    this.authService.isAuthenticated(this)
-  }
-
-  /**
-   * Callback after check authentication on Init time
-   *
-   * @param message
-   * @param isLoggedIn
-   */
-  isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.authService.logout();
-    }
-
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

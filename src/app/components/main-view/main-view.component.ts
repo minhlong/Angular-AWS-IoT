@@ -13,7 +13,7 @@ declare const AWS: any;
     selector: 'app-main',
     templateUrl: 'main-view.template.html'
 })
-export class MainViewComponent implements LoggedInCallback, OnInit {
+export class MainViewComponent implements OnInit {
     token: any
     apiURL: any
     locationData: any
@@ -30,11 +30,7 @@ export class MainViewComponent implements LoggedInCallback, OnInit {
         public router: Router,
         public authService: CognitoAuthService,
         private _http: Http
-    ) {
-        // Checking if the user is already authenticated.
-        // If so, then redirect to the secure site
-        this.authService.isAuthenticated(this);
-    }
+    ) { }
 
     ngOnInit() {
         this.apiURL = environment.API_URL + '/locations';
@@ -57,18 +53,6 @@ export class MainViewComponent implements LoggedInCallback, OnInit {
                 that.iotData = data
             }
         });
-    }
-
-    /**
-     * Callback after check authentication on Init time
-     *
-     * @param message
-     * @param isLoggedIn
-     */
-    isLoggedIn(message: string, isLoggedIn: boolean) {
-        if (!isLoggedIn) {
-            this.router.navigate(['/login']);
-        }
     }
 
     attachIoTPolicy() {

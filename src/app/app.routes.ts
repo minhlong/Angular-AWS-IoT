@@ -5,6 +5,7 @@ import { BlankComponent } from './modules/layouts/blank.component';
 import { LogoutComponent } from './components/logout.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
+import { AuthGuard } from './services/auth-guard.service';
 
 const noAuth: Routes = [
     {
@@ -21,7 +22,8 @@ const hasAuth: Routes = [
         path: '', component: BasicComponent,
         children: [
             { path: 'home', component: MainViewComponent }
-        ]
+        ],
+        canActivate: [AuthGuard]
     },
 ];
 
