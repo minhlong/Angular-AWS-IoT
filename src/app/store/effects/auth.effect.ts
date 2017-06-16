@@ -6,8 +6,10 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
+
 import { AuthActions } from '../actions/auth.action';
-import { AuthProvider } from '../../services/auth.provider';
+import { AuthCognitoService } from '../../services/auth-cognito.service';
 
 import 'rxjs/Rx';
 
@@ -15,41 +17,36 @@ import 'rxjs/Rx';
 export class AuthEffect {
 
   constructor(
+    private router: Router,
     private actions$: Actions,
-    private authService: AuthProvider, // Auth Service xử lý các thao tác với server
-    private authActions: AuthActions // Định nghĩa các Auth action
+    private cogAuthService: AuthCognitoService,
+    private authActions: AuthActions
   ) {
   }
 
-  // tslint:disable-next-line:member-ordering
   @Effect()
   login$: Observable<Action> = this.actions$
     .ofType(AuthActions.AUTH)
     .map<Action, any>(toPayload)
-    .switchMap((payload: any) => this.authService.login(payload.username, payload.password)
+    .switchMap((payload: any) => this.cogAuthService.authenticate(payload.email, payload.password)
       .map((user: any) => this.authActions.authCompleted(user))
+      .do(() => {
+        this.router.navigate(['/home']);
+      })
       .catch((err) =>
         Observable.of(this.authActions.authError(err))
       )
     );
 
-  // tslint:disable-next-line:member-ordering
-  @Effect()
-  checkToken$: Observable<Action> = this.actions$
-    .ofType(AuthActions.CHECK_TOKEN)
-    .switchMap(() => this.authService.getLoggedUser()
-      .map((user: any) => {
-        return this.authActions.checkTokenCompleted(user);
-      })
-      .catch((err) =>
-        Observable.of(this.authActions.checkTokenCompleted(null))
-      )
-    );
-
-  // tslint:disable-next-line:member-ordering
   @Effect()
   logout$: Observable<Action> = this.actions$
     .ofType(AuthActions.LOGOUT, AuthActions.UNAUTHORIZED)
-    .do(() => this.authService.logout())
-    .map(() => this.authActions.logoutSuccess());
+    .do(() => {
+      this.cogAuthService.logout();
+      this.router.navigate(['/login']);
+    })
+    .map(() => this.authActions.logoutSuccess())
+    .catch((err) =>
+      Observable.of(this.authActions.authError(err))
+    );
 }

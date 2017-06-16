@@ -1,51 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Callback, CognitoAuthService } from './../../services/cognito-auth.service';
+import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Store } from '@ngrx/store';
+
+import { AuthSelector } from '../../store/auth.selector';
+import { AppState } from '../../store/reducers/index';
+import { AuthActions } from './../../store/actions/auth.action';
 
 @Component({
   selector: 'app-login-component',
   templateUrl: 'login.template.html'
 })
 
-export class LoginComponent implements OnInit, Callback {
-  public email: string;
-  public password: string;
-  public errorMessage: string;
+export class LoginComponent {
+  login: { email?: string, password?: string } = {};
+  isLoading = false;
+  errorMessage: string;
 
   constructor(
-    public router: Router,
-    public authService: CognitoAuthService,
-  ) { }
+    private authActions: AuthActions,
+    private store: Store<AppState>
+  ) {
+    this.store.let(AuthSelector.isLoading()).subscribe(res => {
+      this.isLoading = res
+    });
 
-  ngOnInit() {
-    this.errorMessage = null;
-    this.authService.logout();
+    this.store.let(AuthSelector.getErrorMessage()).subscribe(err => {
+      this.errorMessage = err
+    });
   }
 
   /**
    * User submit login form
    */
-  onLogin() {
-    if (this.email == null || this.password == null) {
-      this.errorMessage = 'All fields are required';
-      return;
-    }
-
-    this.errorMessage = 'loading ...';
-    this.authService.authenticate(this.email, this.password, this);
-  }
-
-  /**
-   * Callback after click login for check authentication
-   *
-   * @param message
-   * @param result
-   */
-  cognitoCallback(message: string, result: any) {
-    if (message != null) {
-      this.errorMessage = message;
-    } else {
-      this.router.navigate(['/home']);
+  onLogin(form: NgForm) {
+    if (form.valid) {
+      this.store.dispatch(this.authActions.auth(this.login.email, this.login.password));
     }
   }
 }

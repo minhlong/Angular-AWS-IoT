@@ -24,11 +24,11 @@ export class AuthActions {
   }
 
   static AUTH = '[Auth] Login';
-  auth(username: string, password: string): Action {
+  auth(email: string, password: string): Action {
     return {
       type: AuthActions.AUTH,
       payload: {
-        username,
+        email,
         password
       }
     };

@@ -1,136 +1,35 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/Rx';
+import { Component } from '@angular/core';
 
-import { CognitoAuthService, LoggedInCallback } from './../../services/cognito-auth.service';
-import { environment } from '../../../environments/environment';
-
-declare const AWS: any;
+import { environment } from '../../../environments/environment.prod';
+import { JwtAuthHttp } from './../../services/http-auth.service';
 
 @Component({
-    selector: 'app-main',
-    templateUrl: 'main-view.template.html'
+  selector: 'app-main',
+  templateUrl: 'main-view.template.html'
 })
-export class MainViewComponent implements OnInit {
-    token: any
-    apiURL: any
-    locationData: any
+export class MainViewComponent {
+  token: any = localStorage.getItem('token')
+  apiURL: any = environment.API_URL + '/locations'
+  locationData: any
 
-    apiIoT: String = 'a243uabiez3zv6.iot.us-east-1.amazonaws.com'
-    thingName: String = 'HMLong-Thing1'
-    iotPolicy: String = 'HMLong-Policy1'
-    thingShadow: any = '{ "state": { "desired" : { "color" : { "r" : 10 }, "engine" : "ON" } } }'
-    iotData: any
+  apiIoT: String = 'a243uabiez3zv6.iot.us-east-1.amazonaws.com'
+  thingName: String = 'HMLong-Thing1'
+  iotPolicy: String = 'HMLong-Policy1'
+  thingShadow: any = '{ "state": { "desired" : { "color" : { "r" : 10 }, "engine" : "ON" } } }'
+  iotData: any
 
-    private iotdata: any
+  constructor(
+    private _http: JwtAuthHttp
+  ) {
+    this.getLocations();
+  }
 
-    constructor(
-        public router: Router,
-        public authService: CognitoAuthService,
-        private _http: Http
-    ) { }
-
-    ngOnInit() {
-        this.apiURL = environment.API_URL + '/locations';
-        this.token = CognitoAuthService.token;
-
-        // Get Data
-        this.getInfoApiUserPools(this.token).subscribe((data) => {
-            this.locationData = data
-        });
-
-        // Get Data Shadow
-        this.iotdata = new AWS.IotData({
-            endpoint: this.apiIoT
-        });
-        const that = this
-        this.iotdata.getThingShadow({ thingName: this.thingName }, function (err, data) {
-            if (err) {
-                console.log(err);
-            } else {
-                that.iotData = data
-            }
-        });
-    }
-
-    attachIoTPolicy() {
-        const iot = new AWS.Iot();
-        const params = {
-            policyName: this.iotPolicy,
-            principal: AWS.config.credentials._identityId
-        };
-        console.log(params)
-        iot.attachPrincipalPolicy(params, function (err, data) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(data);
-            }
-        });
-    }
-
-    detachIoTPolicy() {
-        const iot = new AWS.Iot();
-        const params = {
-            policyName: this.iotPolicy,
-            principal: AWS.config.credentials._identityId
-        };
-        console.log(params)
-        iot.detachPrincipalPolicy(params, function (err, data) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(data);
-            }
-        });
-    }
-
-    /**
-     * Update IoT Shadow
-     * Ref https://stackoverflow.com/questions/40104559/forbidden-exception-on-accessing-aws-iot-using-amazon-cognito
-     * Ref http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Iot.html#attachPrincipalPolicy-property
-     */
-    updateIoT() {
-        const options = {
-            thingName: this.thingName,
-            payload: this.thingShadow
-        };
-        const that = this
-        this.iotdata.updateThingShadow(options, function (err, data) {
-            if (err) {
-                console.log(err);
-            } else {
-                that.iotData = data
-            }
-        });
-    }
-
-    /**
-     * Get data from the API URL with the token
-     * @param token
-     */
-    private getInfoApiUserPools(token): Observable<any> {
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', token);
-
-        return this._http.get(this.apiURL, { headers: headers })
-            .map(res => res.json())
-            .catch(this._serverError);
-    }
-
-    /**
-     * Handle error from the HTTP
-     * @param err
-     */
-    private _serverError(err: any) {
-        if (err.status === 0) {
-            return Observable.throw(err.json().error || 'UNAUTHORIZED!!!');
-        }
-        if (err instanceof Response) {
-            return Observable.throw(err.json().error || 'Backend Server Error');
-        }
-    }
+  private getLocations() {
+    this._http
+      .get(this.apiURL)
+      .map(res => res.json())
+      .subscribe(data => {
+        this.locationData = data
+      });
+  }
 }

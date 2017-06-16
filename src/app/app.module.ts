@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { LocalStorageModule } from 'angular-2-local-storage';
 
 import { AppComponent } from './app.component';
 import { ROUTES } from './app.routes';
@@ -20,7 +19,6 @@ import { MainViewComponent } from './components/main-view/main-view.component';
 
 // Services
 import { providers } from './services/index';
-import { AuthGuard } from './services/auth-guard.service';
 
 // Redux - Actions
 import { actions } from './store/actions/index';
@@ -42,9 +40,6 @@ import { reducer } from './store/reducers/index';
     HttpModule,
     FormsModule,
 
-    // Local Storge
-    LocalStorageModule.withConfig({ storageType: 'localStorage' }),
-
     // Layout
     LayoutsModule,
 
@@ -58,7 +53,6 @@ import { reducer } from './store/reducers/index';
   providers: [
     providers(), // Services
     actions(), // Redux - Action
-    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
