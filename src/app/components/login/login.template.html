@@ -1,6 +1,9 @@
 <div class="middle-box text-center loginscreen  animated fadeInDown">
   <div>
     <h2>Vertium IoT</h2>
+    <div [hidden]="!isLoading" class="alert alert-info">
+      ... loading ...
+    </div>
     <div [hidden]="!errorMessage" class="alert alert-danger">
       {{ errorMessage }}
     </div>
@@ -11,7 +14,7 @@
       <div class="form-group">
         <input type="password" [(ngModel)]="login.password" #password="ngModel" name="password" required class="form-control" placeholder="Password">
       </div>
-      <button [hidden]="isLoading" type="submit" (click)="onLogin(loginForm)" class="btn btn-primary block full-width m-b">Login</button>
+      <button *ngIf="!isLoading" type="submit" (click)="onLogin(loginForm)" class="btn btn-primary block full-width m-b">Login</button>
     </form>
   </div>
 </div>

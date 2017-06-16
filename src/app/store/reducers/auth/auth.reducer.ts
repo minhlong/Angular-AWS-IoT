@@ -21,8 +21,7 @@ export const authReducer: ActionReducer<AuthState> = (state: AuthState = default
     }
 
     // Các action sẽ cập nhật tài khoản đăng nhập (ngưng loading)
-    case AuthActions.AUTH_COMPLETED:
-    case AuthActions.CHECK_TOKEN_COMPLETED: {
+    case AuthActions.AUTH_COMPLETED: {
       const user: any = action.payload;
       return Object.assign({}, state, {
         currentUser: user,

@@ -8,21 +8,6 @@ import { Action } from '@ngrx/store';
 @Injectable()
 export class AuthActions {
 
-  static CHECK_TOKEN = '[Auth] Check Token';
-  checkToken(): Action {
-    return {
-      type: AuthActions.CHECK_TOKEN
-    };
-  }
-
-  static CHECK_TOKEN_COMPLETED = '[Auth] Check Token Completed';
-  checkTokenCompleted(user: any = null): Action {
-    return {
-      type: AuthActions.CHECK_TOKEN_COMPLETED,
-      payload: user
-    };
-  }
-
   static AUTH = '[Auth] Login';
   auth(email: string, password: string): Action {
     return {
