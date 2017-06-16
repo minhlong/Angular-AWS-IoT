@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'; // Have to remove on production mod
+
 import { AppComponent } from './app.component';
 import { ROUTES } from './app.routes';
 
@@ -48,7 +50,10 @@ import { reducer } from './store/reducers/index';
 
     // Redux
     StoreModule.provideStore(reducer),
-    EffectsModule.run(AuthEffect)
+    EffectsModule.run(AuthEffect),
+    StoreDevtoolsModule.instrumentOnlyWithExtension({
+      maxAge: 5
+    })
   ],
   providers: [
     providers(), // Services

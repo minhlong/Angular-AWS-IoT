@@ -24,6 +24,7 @@
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.3",
     "@ngrx/store": "^2.2.2",
+    "@ngrx/store-devtools": "^3.2.4",
     "amazon-cognito-identity-js": "^1.18.0",
     "angular2-jwt": "^0.2.3",
     "bootstrap": "^3.3.7",
