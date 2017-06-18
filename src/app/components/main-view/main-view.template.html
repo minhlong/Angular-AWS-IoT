@@ -34,4 +34,37 @@
       </div>
     </div>
   </div>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      IoT Device Shadow
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <th>RestFUL API URL</th>
+              <td>{{apiIoT}}</td>
+            </tr>
+            <tr>
+              <th>Thing Name</th>
+              <td>{{thingName}}</td>
+            </tr>
+            <tr>
+              <th>Shadow Sate</th>
+              <td>{{iotData | json}}</td>
+            </tr>
+            <tr>
+              <th>
+                <button (click)="updateIoT()" class="btn btn-sm btn-success" type="button">Update</button>
+              </th>
+              <td>
+                <input type="text" [(ngModel)]="thingShadow" class="form-control">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
