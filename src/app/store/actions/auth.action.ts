@@ -27,12 +27,26 @@ export class AuthActions {
     };
   }
 
-
   static AUTH_FAILED = '[Auth] Login Failed';
   authError(err: any): Action {
     return {
       type: AuthActions.AUTH_FAILED,
       payload: err
+    };
+  }
+
+  static GET_LOGGED_USER = '[Auth] Validate Token - Generate User information';
+  getLoggedUser(): Action {
+    return {
+      type: AuthActions.GET_LOGGED_USER
+    };
+  }
+
+  static GET_LOGGED_USER_SUCC = '[Auth] Validate Token - Succ';
+  getLoggedUserSucc(user: any = null): Action {
+    return {
+      type: AuthActions.GET_LOGGED_USER_SUCC,
+      payload: user
     };
   }
 
