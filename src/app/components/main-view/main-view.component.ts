@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { environment } from '../../../environments/environment.prod';
 import { JwtAuthHttp } from './../../services/http-auth.service';
+import { consoleLog } from '../../app.helpers';
 
 declare const AWS: any;
 
@@ -9,7 +10,7 @@ declare const AWS: any;
   selector: 'app-main',
   templateUrl: 'main-view.template.html'
 })
-export class MainViewComponent {
+export class MainViewComponent implements OnInit {
   token: any = localStorage.getItem('token')
   apiURL: any = environment.API_URL + '/locations'
   locationData: any
@@ -21,11 +22,15 @@ export class MainViewComponent {
   private ioTShadow: any
 
   constructor(
-    private _http: JwtAuthHttp
+    private _http: JwtAuthHttp,
   ) {
+  }
+
+  ngOnInit() {
     this.getLocations();
     this.initIoTShadow();
   }
+
 
   private getLocations() {
     this._http
@@ -55,7 +60,7 @@ export class MainViewComponent {
     const that = this
     this.ioTShadow.getThingShadow({ thingName: this.thingName }, function (err, data) {
       if (err) {
-        console.log(err);
+        consoleLog(err);
       } else {
         that.iotData = data
       }
@@ -74,7 +79,7 @@ export class MainViewComponent {
     const that = this
     this.ioTShadow.updateThingShadow(options, function (err, data) {
       if (err) {
-        console.log(err);
+        consoleLog(err);
       } else {
         that.iotData = data
       }

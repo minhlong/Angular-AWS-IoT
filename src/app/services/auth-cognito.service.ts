@@ -57,7 +57,7 @@ export class AuthCognitoService implements AuthServiceProvider {
       const that = this;
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (sess) {
-          observer.next(that.validateToken(sess.getIdToken().getJwtToken()));
+          observer.next(that.getLoggedUser(sess.getIdToken().getJwtToken()));
           observer.complete();
         },
         onFailure: function (err) {
@@ -74,7 +74,7 @@ export class AuthCognitoService implements AuthServiceProvider {
    *
    * @param token
    */
-  private validateToken(token: string): any {
+  getLoggedUser(token: string): any {
     if (!token || this.jwtHelper.isTokenExpired(token)) {
       return null;
     }

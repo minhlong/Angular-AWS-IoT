@@ -39,6 +39,14 @@ export class AuthEffect {
     );
 
   @Effect()
+  getLoggedUser$: Observable<Action> = this.actions$
+    .ofType(AuthActions.GET_LOGGED_USER)
+    .map(() => {
+      const usr = this.cogAuthService.getLoggedUser(localStorage.getItem('token'));
+      return this.authActions.getLoggedUserSucc(usr);
+    });
+
+  @Effect()
   logout$: Observable<Action> = this.actions$
     .ofType(AuthActions.LOGOUT, AuthActions.UNAUTHORIZED)
     .do(() => {

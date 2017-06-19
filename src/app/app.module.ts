@@ -13,12 +13,6 @@ import { ROUTES } from './app.routes';
 
 // Modules
 import { LayoutsModule } from './modules/layouts/layouts.module';
-
-// Components
-import { LoginComponent } from './components/login/login.component';
-import { LogoutComponent } from './components/logout.component';
-import { MainViewComponent } from './components/main-view/main-view.component';
-
 // Services
 import { providers } from './services/index';
 
@@ -29,12 +23,19 @@ import { AuthEffect } from './store/effects/auth.effect';
 // Redux - Reducer
 import { reducer } from './store/reducers/index';
 
+// Components
+import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout.component';
+import { MainViewComponent } from './components/main-view/main-view.component';
+import { DeviceManagementComponent } from './components/device-management/device-management.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     MainViewComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    DeviceManagementComponent
   ],
   imports: [
     // Angular modules
