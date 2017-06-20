@@ -66,7 +66,7 @@ export class MQTTService {
     return _observable.call(AWS.config.credentials)
       .map((err) => {
         if (err) {
-          consoleLog('GenerateURL: ' + err);
+          consoleLog('GenerateURL Err: ' + err);
           return null
         }
 

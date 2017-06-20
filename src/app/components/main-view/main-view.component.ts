@@ -81,12 +81,22 @@ export class MainViewComponent implements OnInit {
   }
 
   initMQTT() {
+    let socketURL = null;
+    const self = this;
     this._mqtt.generateURL().subscribe((_url) => {
-      this.clientMQTT = mqtt.connect(_url, {
-        // transformWsUrl: function (url, options, client) {
-        //   console.log(client, url);
-        //   return url
-        // }
+      socketURL = _url;
+      this.clientMQTT = mqtt.connect(socketURL, {
+        transformWsUrl: function (url, options, client) {
+
+          self._mqtt.generateURL().subscribe((_res) => {
+            consoleLog('Res before:' + socketURL)
+            socketURL = _res;
+            consoleLog('Res  after:' + socketURL)
+          });
+
+          consoleLog(socketURL)
+          return socketURL
+        }
       });
 
       // Handle Received Messages
