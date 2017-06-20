@@ -82,27 +82,31 @@ export class MainViewComponent implements OnInit {
 
   initMQTT() {
     this._mqtt.generateURL().subscribe((_url) => {
-      this.clientMQTT = mqtt.connect(_url);
-      Observable.bindCallback(this.clientMQTT.on)
-        .call(this.clientMQTT, 'connect')
-        .subscribe(() => {
+      this.clientMQTT = mqtt.connect(_url, {
+        // transformWsUrl: function (url, options, client) {
+        //   console.log(client, url);
+        //   return url
+        // }
+      });
 
-          // Handle Received Messages
-          Observable.fromEvent(this.clientMQTT, 'message', (topic, message) => {
-            return {
-              topic: topic,
-              mess: message
-            }
-          }).subscribe((res) => {
-            this.ioT.mqtt.payload = JSON.parse(res.mess.toString());
-          });
+      // Handle Received Messages
+      Observable.fromEvent(this.clientMQTT, 'message', (topic, message) => {
+        return {
+          topic: topic,
+          mess: message
+        }
+      }).subscribe((res) => {
+        this.ioT.mqtt.payload = JSON.parse(res.mess.toString());
+      });
 
-          // Register topic
-          this.clientMQTT.subscribe(this.ioT.mqtt.topic + '/update' + '/accepted')
-          this.clientMQTT.subscribe(this.ioT.mqtt.topic + '/get' + '/accepted')
-          // Get State
-          this.clientMQTT.publish(this.ioT.mqtt.topic + '/get')
-        });
+      // Handle Conncted
+      Observable.fromEvent(this.clientMQTT, 'connect').subscribe(() => {
+        // Register topic
+        this.clientMQTT.subscribe(this.ioT.mqtt.topic + '/update' + '/accepted')
+        this.clientMQTT.subscribe(this.ioT.mqtt.topic + '/get' + '/accepted')
+        // Get State
+        this.clientMQTT.publish(this.ioT.mqtt.topic + '/get')
+      });
     })
   }
 
