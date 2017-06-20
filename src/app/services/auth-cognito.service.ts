@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../environments/environment';
 import { JwtHelper } from 'angular2-jwt';
+import { consoleLog } from '../app.helpers';
 
 declare const AWS: any;
 declare const AWSCognito: any;
@@ -54,16 +55,17 @@ export class AuthCognitoService implements AuthServiceProvider {
     });
 
     return Observable.create((observer) => {
-      const that = this;
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (sess) {
-          observer.next(that.getLoggedUser(sess.getIdToken().getJwtToken()));
+          observer.next(sess);
           observer.complete();
         },
         onFailure: function (err) {
           observer.error(err)
         }
-      });
+      })
+    }).map((sess) => {
+      this.getLoggedUser(sess.getIdToken().getJwtToken())
     });
   }
 
@@ -76,8 +78,23 @@ export class AuthCognitoService implements AuthServiceProvider {
    */
   getLoggedUser(token: string): any {
     if (!token || this.jwtHelper.isTokenExpired(token)) {
+      consoleLog('Cog Auth: Token expired');
       return null;
     }
+
+    // After authenticate
+    // Update AWS token for use in another services
+    const cognitoParams = {
+      IdentityPoolId: this.identityPool,
+      Logins: {}
+    };
+    cognitoParams.Logins[
+      'cognito-idp.' + this.region +
+      '.amazonaws.com/' + this.poolData.UserPoolId
+    ] = localStorage.getItem('token');
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials(cognitoParams);
+
+    // Update user information from the token
     localStorage.setItem('token', token);
     return this.jwtHelper.decodeToken(token);
   }
