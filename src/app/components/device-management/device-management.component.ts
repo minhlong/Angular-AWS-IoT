@@ -18,7 +18,7 @@ export class DeviceManagementComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getInfo()
+    this.getInfo();
   }
 
   /**

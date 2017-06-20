@@ -3,7 +3,7 @@
     <div class="col-lg-12">
       <div class="text-center m-t-lg">
         <h1>
-          Welcome in Demo
+          Welcome in Virtium
         </h1>
         <small>It is an application skeleton for a typical web app. You can use it to quickly bootstrap your webapp projects and dev environment.</small>
       </div>
@@ -19,15 +19,15 @@
           <tbody>
             <tr>
               <th>Token</th>
-              <td>{{token}}</td>
+              <td>{{apiGetway.token}}</td>
             </tr>
             <tr>
               <th>API_URL</th>
-              <td>{{apiURL}}</td>
+              <td>{{apiGetway.url}}</td>
             </tr>
             <tr>
               <th>Data_Response</th>
-              <td>{{locationData | json}}</td>
+              <td>{{apiGetway.data | json}}</td>
             </tr>
           </tbody>
         </table>
@@ -40,26 +40,48 @@
     </div>
     <div class="panel-body">
       <div class="table-responsive">
+        <h2>RestFUL Protocol</h2>
         <table class="table table-bordered table-striped">
           <tbody>
             <tr>
-              <th>RestFUL API URL</th>
-              <td>{{apiIoT}}</td>
+              <th>API URL</th>
+              <td>{{ioT.restFul.url}}</td>
             </tr>
             <tr>
               <th>Thing Name</th>
-              <td>{{thingName}}</td>
+              <td>{{ioT.restFul.thingName}}</td>
             </tr>
             <tr>
               <th>Shadow Sate</th>
-              <td>{{iotData | json}}</td>
+              <td>{{ioT.restFul.data | json}}</td>
             </tr>
             <tr>
               <th>
-                <button (click)="updateIoT()" class="btn btn-sm btn-success" type="button">Update</button>
+                <button (click)="updateIoTRestF()" class="btn btn-sm btn-success" type="button">Update</button>
               </th>
               <td>
-                <input type="text" [(ngModel)]="thingShadow" class="form-control">
+                <input type="text" [(ngModel)]="ioT.restFul.thingShadow" class="form-control">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>MQTT Protocol</h2>
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <th>Topic</th>
+              <td>{{ioT.mqtt.topic}}</td>
+            </tr>
+            <tr>
+              <th>Shadow Sate</th>
+              <td>{{ioT.mqtt.payload | json}}</td>
+            </tr>
+            <tr>
+              <th>
+                <button (click)="updateIoTMQTT()" class="btn btn-sm btn-primary" type="button">Update</button>
+              </th>
+              <td>
+                <input type="text" [(ngModel)]="ioT.restFul.thingShadow" class="form-control">
               </td>
             </tr>
           </tbody>
