@@ -113,7 +113,7 @@ export class MainViewComponent implements OnInit {
         this.ioTMQTT.subscribe(this.ioT.mqtt.topic + '/update' + '/accepted')
         this.ioTMQTT.subscribe(this.ioT.mqtt.topic + '/get' + '/accepted')
         // Get State
-        this.ioTMQTT.publish(this.ioT.mqtt.topic + '/update')
+        this.ioTMQTT.publish(this.ioT.mqtt.topic + '/get')
       })
     })
   }
