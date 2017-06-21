@@ -28,6 +28,7 @@ import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
 import { DeviceManagementComponent } from './components/device-management/device-management.component';
+import { DeviceDetailComponent } from './components/device-detail/device-detail.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DeviceManagementComponent } from './components/device-management/device
     MainViewComponent,
     LoginComponent,
     LogoutComponent,
-    DeviceManagementComponent
+    DeviceManagementComponent,
+    DeviceDetailComponent
   ],
   imports: [
     // Angular modules
