@@ -18,16 +18,14 @@
         <table class="table table-bordered table-striped">
           <tbody>
             <tr>
-              <th>Token</th>
-              <td>{{apiGetway.token}}</td>
-            </tr>
-            <tr>
-              <th>API_URL</th>
+              <th style="width: 200px">API_URL</th>
               <td>{{apiGetway.url}}</td>
             </tr>
             <tr>
-              <th>Data_Response</th>
-              <td>{{apiGetway.data | json}}</td>
+              <th style="width: 200px">Data_Response</th>
+              <td>
+                <div id="jeAPIG"></div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -44,23 +42,25 @@
         <table class="table table-bordered table-striped">
           <tbody>
             <tr>
-              <th>API URL</th>
+              <th style="width: 200px">API URL</th>
               <td>{{ioT.restFul.url}}</td>
             </tr>
             <tr>
-              <th>Thing Name</th>
+              <th style="width: 200px">Thing Name</th>
               <td>{{ioT.restFul.thingName}}</td>
             </tr>
             <tr>
-              <th>Shadow Sate</th>
-              <td>{{ioT.restFul.data | json}}</td>
+              <th style="width: 200px">Shadow</th>
+              <td>
+                <div id="jeShadowRestFata"></div>
+              </td>
             </tr>
             <tr>
-              <th>
-                <button (click)="updateIoTRestF()" class="btn btn-sm btn-success" type="button">Update</button>
+              <th style="width: 200px">
+                <button (click)="updateIoT()" class="btn btn-sm btn-success" type="button">Update</button>
               </th>
               <td>
-                <input type="text" [(ngModel)]="ioT.restFul.thingShadow" class="form-control">
+                <div id="jeShadowRestF"></div>
               </td>
             </tr>
           </tbody>
@@ -69,19 +69,21 @@
         <table class="table table-bordered table-striped">
           <tbody>
             <tr>
-              <th>Topic</th>
+              <th style="width: 200px">Topic</th>
               <td>{{ioT.mqtt.topic}}</td>
             </tr>
             <tr>
-              <th>Shadow Sate</th>
-              <td>{{ioT.mqtt.payload | json}}</td>
+              <th style="width: 200px">Shadow</th>
+              <td>
+                <div id="jeShadowMQTTData"></div>
+              </td>
             </tr>
             <tr>
-              <th>
-                <button (click)="updateIoTMQTT()" class="btn btn-sm btn-primary" type="button">Update</button>
+              <th style="width: 200px">
+                <button (click)="updateIoT(true)" class="btn btn-sm btn-primary" type="button">Update</button>
               </th>
               <td>
-                <input type="text" [(ngModel)]="ioT.restFul.thingShadow" class="form-control">
+                <div id="jeShadow"></div>
               </td>
             </tr>
           </tbody>
