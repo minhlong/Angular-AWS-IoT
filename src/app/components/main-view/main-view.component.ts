@@ -15,20 +15,15 @@ declare const JSONEditor: any;
   templateUrl: 'main-view.template.html'
 })
 export class MainViewComponent implements OnInit {
-  apiGetway = {
-    url: environment.API_URL + '/locations'
-  }
+  urlAPIGetway = environment.API_URL + '/locations'
 
   ioT = {
     restFul: {
       url: 'a243uabiez3zv6.iot.us-east-1.amazonaws.com',
       thingName: 'HMLong-Thing1',
-      thingShadow: '{ "state": { "desired" : { "color" : "red" } } }',
-      data: null,
     },
     mqtt: {
       topic: '$aws/things/HMLong-Thing1/shadow',
-      payload: null,
     }
   }
   ioTRestF: any
@@ -37,7 +32,7 @@ export class MainViewComponent implements OnInit {
   // JsonEditor
   jeShadowRestF: any
   jeShadowMQTT: any
-  jeShadowRestFata: any
+  jeShadowRestFData: any
 
   constructor(
     private _http: JwtAuthHttp,
@@ -53,16 +48,27 @@ export class MainViewComponent implements OnInit {
   }
 
   initJsonE() {
-    this.jeShadowMQTT = new JSONEditor(document.getElementById('jeShadow'));
-    this.jeShadowRestF = new JSONEditor(document.getElementById('jeShadowRestF'));
-    this.jeShadowMQTT.set({ 'state': { 'desired': { 'color': 'red' } } });
-    this.jeShadowRestF.set({ 'state': { 'desired': { 'color': 'red' } } });
+    const _defaultShadow = {
+      state: {
+        desired: {
+          color: 'red'
+        }
+      }
+    };
+    const _options = {
+      mode: 'code'
+    };
+
+    this.jeShadowMQTT = new JSONEditor(document.getElementById('jeShadow'), _options);
+    this.jeShadowRestF = new JSONEditor(document.getElementById('jeShadowRestF'), _options);
+    this.jeShadowMQTT.set(_defaultShadow);
+    this.jeShadowRestF.set(_defaultShadow);
   }
 
   private getLocations() {
     const _eJson = new JSONEditor(document.getElementById('jeAPIG'));
     this._http
-      .get(this.apiGetway.url)
+      .get(this.urlAPIGetway)
       .map(res => res.json())
       .subscribe(res => {
         _eJson.set(res)
@@ -70,23 +76,22 @@ export class MainViewComponent implements OnInit {
   }
 
   initIoTRestF() {
-    this.jeShadowRestFata = new JSONEditor(document.getElementById('jeShadowRestFata'));
+    this.jeShadowRestFData = new JSONEditor(document.getElementById('jeShadowRestFData'), { mode: 'view' });
 
     // Get Data Shadow
     this.ioTRestF = new AWS.IotData({
       endpoint: this.ioT.restFul.url
     });
 
-    const _observable = Observable.bindCallback(this.ioTRestF.getThingShadow);
-    _observable.call(this.ioTRestF, { thingName: this.ioT.restFul.thingName }).subscribe(([err, res]) => {
-      this.jeShadowRestFata.set(JSON.parse(res.payload))
-    });
+    this.ioTRestF.getThingShadow({ thingName: this.ioT.restFul.thingName }, (err, res) => {
+      this.jeShadowRestFData.set(JSON.parse(res.payload))
+    })
   }
 
   initIoTMQTT() {
     let socketURL = null;
     const self = this;
-    const jeShadowMQTTData = new JSONEditor(document.getElementById('jeShadowMQTTData'));
+    const jeShadowMQTTData = new JSONEditor(document.getElementById('jeShadowMQTTData'), { mode: 'view' });
 
     this._mqtt.generateURL().subscribe((_url) => {
       socketURL = _url;
@@ -95,7 +100,7 @@ export class MainViewComponent implements OnInit {
         // Reconnect after disconnec from the network
         transformWsUrl: function (url, options, client) {
           self._mqtt.generateURL().subscribe((_res) => {
-            consoleLog('Reconnect MQTT:' + _res)
+            consoleLog('Reconnect MQTT!')
             socketURL = _res;
           });
           return socketURL
@@ -112,8 +117,11 @@ export class MainViewComponent implements OnInit {
         // Register topic
         this.ioTMQTT.subscribe(this.ioT.mqtt.topic + '/update' + '/accepted')
         this.ioTMQTT.subscribe(this.ioT.mqtt.topic + '/get' + '/accepted')
-        // Get State
-        this.ioTMQTT.publish(this.ioT.mqtt.topic + '/get')
+
+        // Get current shadow after x second
+        setTimeout(() => {
+          this.ioTMQTT.publish(this.ioT.mqtt.topic + '/get')
+        }, 1000)
       })
     })
   }
@@ -129,15 +137,14 @@ export class MainViewComponent implements OnInit {
       this.ioTMQTT.publish(this.ioT.mqtt.topic + '/update', JSON.stringify(this.jeShadowMQTT.get()))
     } else {
       // RestFul Protocol
-      const _observable = Observable.bindCallback(this.ioTRestF.updateThingShadow);
       const _pars = {
         thingName: this.ioT.restFul.thingName,
         payload: JSON.stringify(this.jeShadowRestF.get())
       };
 
-      _observable.call(this.ioTRestF, _pars).subscribe(([err, res]) => {
-        this.jeShadowRestFata.set(JSON.parse(res.payload))
-      });
+      this.ioTRestF.updateThingShadow(_pars, (err, res) => {
+        this.jeShadowRestFData.set(JSON.parse(res.payload))
+      })
     }
   }
 }

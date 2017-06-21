@@ -10,6 +10,7 @@ import { LogoutComponent } from './components/logout.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
 import { DeviceManagementComponent } from './components/device-management/device-management.component';
+import { DeviceDetailComponent } from './components/device-detail/device-detail.component';
 
 const noAuth: Routes = [
     {
@@ -27,6 +28,7 @@ const hasAuth: Routes = [
         children: [
             { path: 'home', component: MainViewComponent },
             { path: 'device-management', component: DeviceManagementComponent },
+            { path: 'device-detail', component: DeviceDetailComponent },
             { path: 'logout', component: LogoutComponent }
         ],
         canActivateChild: [AuthGuard]
