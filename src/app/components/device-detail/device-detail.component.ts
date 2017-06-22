@@ -27,17 +27,7 @@ export class DeviceDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getThingInfor();
     this.initMQTT();
-  }
-
-  getThingInfor() {
-    const _je = new JSONEditor(document.getElementById('jeThingInfo'), { mode: 'view' });
-    const _iot = new AWS.Iot();
-
-    _iot.describeThing({ thingName: this.thingName }, function (err, data) {
-      _je.set(data);
-    });
   }
 
   initMQTT() {
@@ -47,7 +37,6 @@ export class DeviceDetailComponent implements OnInit {
     this.jeThingState.set({
       state: {
         desired: {
-          connected: true,
           location: {
             lat: 123,
             len: 456
@@ -86,9 +75,13 @@ export class DeviceDetailComponent implements OnInit {
               total_occurences: 'Lorem'
             },
           ]
+        },
+        reported: {
+          connected: true,
         }
       }
     });
+    this.jeThingState.expandAll();
     // Define thing Shadow
     let socketURL = null;
     const self = this;
@@ -128,7 +121,7 @@ export class DeviceDetailComponent implements OnInit {
       // Handle Conncted
       this.ioTMQTT.on('connect', () => {
         // Register topic
-        this.ioTMQTT.subscribe(this.topic + '/update' + '/accepted')
+        this.ioTMQTT.subscribe(this.topic + '/update' + '/document')
         this.ioTMQTT.subscribe(this.topic + '/get' + '/accepted')
 
         // Get current shadow after x second
