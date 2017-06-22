@@ -31,7 +31,6 @@ export class IotEmulatorComponent implements OnInit {
 
   dvConnect() {
     let _socketURL = null;
-    const _self = this;
 
     this._mqtt.generateURL().subscribe((_url) => {
       _socketURL = _url;
@@ -39,7 +38,7 @@ export class IotEmulatorComponent implements OnInit {
         // Detecting a Thing is Connected - MQTT Last Will and Testament (LWT)
         // http://docs.aws.amazon.com/iot/latest/developerguide/thing-shadow-data-flow.html
         will: {
-          topic: 'Disconnect/' + _self.thingName,
+          topic: 'Disconnect/' + this.thingName,
           payload: JSON.stringify({
             state: {
               reported: {
@@ -51,8 +50,9 @@ export class IotEmulatorComponent implements OnInit {
           retain: false
         },
         // Reconnect after disconnec from the network
-        transformWsUrl: function (url, options, client) {
-          _self._mqtt.generateURL().subscribe((_res) => {
+        transformWsUrl: (url, options, client) => {
+          console.log(options);
+          this._mqtt.generateURL().subscribe((_res) => {
             _socketURL = _res;
           });
           return _socketURL

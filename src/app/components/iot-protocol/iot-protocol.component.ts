@@ -73,17 +73,16 @@ export class IotProtocolComponent implements OnInit {
   }
 
   initIoTMQTT() {
-    let socketURL = null;
-    const self = this;
     const jeShadowMQTTData = new JSONEditor(document.getElementById('jeShadowMQTTData'), { mode: 'view' });
+    let socketURL = null;
 
     this._mqtt.generateURL().subscribe((_url) => {
       socketURL = _url;
       this.ioTMQTT = mqtt.connect(socketURL, {
 
         // Reconnect after disconnec from the network
-        transformWsUrl: function (url, options, client) {
-          self._mqtt.generateURL().subscribe((_res) => {
+        transformWsUrl: (url, options, client) => {
+          this._mqtt.generateURL().subscribe((_res) => {
             consoleLog('Reconnect MQTT!')
             socketURL = _res;
           });

@@ -27,17 +27,16 @@ export class IotFlowComponent implements OnInit {
   }
 
   initAWSIoT() {
-    let _socketURL = null;
-    const _self = this;
     const _je = new JSONEditor(document.getElementById('jeIoTShadow'), { mode: 'view' });
+    let _socketURL = null;
 
     this._mqtt.generateURL().subscribe((_url) => {
       _socketURL = _url;
       this.awsClient = mqtt.connect(_socketURL, {
 
         // Reconnect after disconnec from the network
-        transformWsUrl: function (url, options, client) {
-          _self._mqtt.generateURL().subscribe((_res) => {
+        transformWsUrl: (url, options, client) => {
+          this._mqtt.generateURL().subscribe((_res) => {
             _socketURL = _res;
           });
           return _socketURL

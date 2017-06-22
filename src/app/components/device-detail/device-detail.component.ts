@@ -84,14 +84,14 @@ export class DeviceDetailComponent implements OnInit {
     this.jeThingState.expandAll();
     // Define thing Shadow
     let socketURL = null;
-    const self = this;
+
     this._mqtt.generateURL().subscribe((_url) => {
       socketURL = _url;
       this.ioTMQTT = mqtt.connect(socketURL, {
         // Detecting a Thing is Connected - MQTT Last Will and Testament (LWT)
         // http://docs.aws.amazon.com/iot/latest/developerguide/thing-shadow-data-flow.html
         will: {
-          topic: 'Disconnect/HMLong-Intelligent-Storage',
+          topic: 'Disconnect/' + this.thingName,
           payload: JSON.stringify({
             state: {
               reported: {
@@ -103,8 +103,8 @@ export class DeviceDetailComponent implements OnInit {
           retain: false
         },
         // Reconnect after disconnec from the network
-        transformWsUrl: function (url, options, client) {
-          self._mqtt.generateURL().subscribe((_res) => {
+        transformWsUrl: (url, options, client) => {
+          this._mqtt.generateURL().subscribe((_res) => {
             consoleLog('Reconnect MQTT!')
             socketURL = _res;
           });
