@@ -27,17 +27,7 @@ export class DeviceDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getThingInfor();
     this.initMQTT();
-  }
-
-  getThingInfor() {
-    const _je = new JSONEditor(document.getElementById('jeThingInfo'), { mode: 'view' });
-    const _iot = new AWS.Iot();
-
-    _iot.describeThing({ thingName: this.thingName }, function (err, data) {
-      _je.set(data);
-    });
   }
 
   initMQTT() {
@@ -47,7 +37,6 @@ export class DeviceDetailComponent implements OnInit {
     this.jeThingState.set({
       state: {
         desired: {
-          connected: true,
           location: {
             lat: 123,
             len: 456
@@ -86,19 +75,23 @@ export class DeviceDetailComponent implements OnInit {
               total_occurences: 'Lorem'
             },
           ]
+        },
+        reported: {
+          connected: true,
         }
       }
     });
+    this.jeThingState.expandAll();
     // Define thing Shadow
     let socketURL = null;
-    const self = this;
+
     this._mqtt.generateURL().subscribe((_url) => {
       socketURL = _url;
       this.ioTMQTT = mqtt.connect(socketURL, {
         // Detecting a Thing is Connected - MQTT Last Will and Testament (LWT)
         // http://docs.aws.amazon.com/iot/latest/developerguide/thing-shadow-data-flow.html
         will: {
-          topic: 'Disconnect/HMLong-Intelligent-Storage',
+          topic: 'Disconnect/' + this.thingName,
           payload: JSON.stringify({
             state: {
               reported: {
@@ -110,8 +103,8 @@ export class DeviceDetailComponent implements OnInit {
           retain: false
         },
         // Reconnect after disconnec from the network
-        transformWsUrl: function (url, options, client) {
-          self._mqtt.generateURL().subscribe((_res) => {
+        transformWsUrl: (url, options, client) => {
+          this._mqtt.generateURL().subscribe((_res) => {
             consoleLog('Reconnect MQTT!')
             socketURL = _res;
           });
@@ -128,7 +121,7 @@ export class DeviceDetailComponent implements OnInit {
       // Handle Conncted
       this.ioTMQTT.on('connect', () => {
         // Register topic
-        this.ioTMQTT.subscribe(this.topic + '/update' + '/accepted')
+        this.ioTMQTT.subscribe(this.topic + '/update' + '/document')
         this.ioTMQTT.subscribe(this.topic + '/get' + '/accepted')
 
         // Get current shadow after x second

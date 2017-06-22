@@ -27,8 +27,12 @@ import { reducer } from './store/reducers/index';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
-import { DeviceManagementComponent } from './components/device-management/device-management.component';
 import { DeviceDetailComponent } from './components/device-detail/device-detail.component';
+import { ApiComponent } from './components/api/api.component';
+import { IotProtocolComponent } from './components/iot-protocol/iot-protocol.component';
+import { IotThingInfoComponent } from './components/iot-thing-info/iot-thing-info.component';
+import { IotFlowComponent } from './components/iot-flow/iot-flow.component';
+import { IotEmulatorComponent } from './components/iot-emulator/iot-emulator.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +40,12 @@ import { DeviceDetailComponent } from './components/device-detail/device-detail.
     MainViewComponent,
     LoginComponent,
     LogoutComponent,
-    DeviceManagementComponent,
-    DeviceDetailComponent
+    DeviceDetailComponent,
+    ApiComponent,
+    IotProtocolComponent,
+    IotThingInfoComponent,
+    IotFlowComponent,
+    IotEmulatorComponent
   ],
   imports: [
     // Angular modules

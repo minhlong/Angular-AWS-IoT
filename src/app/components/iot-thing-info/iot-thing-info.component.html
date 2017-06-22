@@ -1,0 +1,45 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          List Thing
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>View</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let thing of things">
+                  <td>{{thing.thingName}}</td>
+                  <td>{{thing.thingTypeName}}</td>
+                  <td>
+                    <button (click)="detail(thing.thingName)" class="btn btn-sm btn-primary" type="button">
+                      View
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          Thing Information
+        </div>
+        <div class="panel-body">
+          <div id="jeThingInfo"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
