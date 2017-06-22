@@ -31,6 +31,8 @@ import { DeviceDetailComponent } from './components/device-detail/device-detail.
 import { ApiComponent } from './components/api/api.component';
 import { IotProtocolComponent } from './components/iot-protocol/iot-protocol.component';
 import { IotThingInfoComponent } from './components/iot-thing-info/iot-thing-info.component';
+import { IotFlowComponent } from './components/iot-flow/iot-flow.component';
+import { IotEmulatorComponent } from './components/iot-emulator/iot-emulator.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { IotThingInfoComponent } from './components/iot-thing-info/iot-thing-inf
     DeviceDetailComponent,
     ApiComponent,
     IotProtocolComponent,
-    IotThingInfoComponent
+    IotThingInfoComponent,
+    IotFlowComponent,
+    IotEmulatorComponent
   ],
   imports: [
     // Angular modules

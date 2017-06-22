@@ -11,10 +11,6 @@ export class IotThingInfoComponent implements OnInit {
 
   thingName = 'HMLong-Intelligent-Storage'
 
-  constructor(
-  ) {
-  }
-
   ngOnInit() {
     this.getThingInfor();
   }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as mqtt from 'mqtt';
 
-import { environment } from '../../../environments/environment.prod';
 import { consoleLog } from '../../app.helpers';
 import { MQTTService } from './../../services/mqtt.service';
 
@@ -105,8 +104,8 @@ export class IotProtocolComponent implements OnInit {
 
         // Get current shadow after x second
         setTimeout(() => {
-          this.ioTMQTT.publish(this.ioT.mqtt.topic + '/get')
-        }, 1000)
+          this.ioTMQTT.publish(this.ioT.mqtt.topic + '/get', '')
+        }, 500)
       })
     })
   }

@@ -13,14 +13,17 @@ import { DeviceDetailComponent } from './components/device-detail/device-detail.
 import { ApiComponent } from './components/api/api.component';
 import { IotThingInfoComponent } from './components/iot-thing-info/iot-thing-info.component';
 import { IotProtocolComponent } from './components/iot-protocol/iot-protocol.component';
+import { IotFlowComponent } from './components/iot-flow/iot-flow.component';
+import { IotEmulatorComponent } from './components/iot-emulator/iot-emulator.component';
 
 const noAuth: Routes = [
     {
         path: '', component: BlankComponent,
         children: [
-            { path: 'login', component: LoginComponent },
+            { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+            { path: 'iot-emulator', component: IotEmulatorComponent, canActivate: [AuthGuard] },
         ],
-        canActivateChild: [GuestGuard]
+
     },
 ];
 
@@ -32,6 +35,7 @@ const hasAuth: Routes = [
             { path: 'api', component: ApiComponent },
             { path: 'iot-protocol', component: IotProtocolComponent },
             { path: 'iot-thing-info', component: IotThingInfoComponent },
+            { path: 'iot-flow', component: IotFlowComponent },
             { path: 'device-detail', component: DeviceDetailComponent },
             { path: 'logout', component: LogoutComponent },
         ],
