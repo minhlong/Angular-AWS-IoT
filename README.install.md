@@ -10,21 +10,11 @@ Update your configur information on `environments/environment.prod.ts`
 export const environment = {
   production: true,
 
-  region: 'Your Information',
-  identityPoolId: 'Your Information',
-  userPoolId: 'Your Information',
-  clientId: 'Your Information',
-
-  API_URL: 'Your Information'
+  ...
 };
 ```
 
 Please run `npm install` for install and `ng serve` for a dev server then. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-```
-Username: <YourID>
-Password: <YourPWD>
-```
 
 ## Code scaffolding
 
