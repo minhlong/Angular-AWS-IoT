@@ -9,7 +9,6 @@ import { GuestGuard } from './services/guards/guest-guard.service';
 import { LogoutComponent } from './components/logout.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
-import { DeviceDetailComponent } from './components/device-detail/device-detail.component';
 import { ApiComponent } from './components/api/api.component';
 import { IotThingInfoComponent } from './components/iot-thing-info/iot-thing-info.component';
 import { IotProtocolComponent } from './components/iot-protocol/iot-protocol.component';
@@ -36,7 +35,6 @@ const hasAuth: Routes = [
             { path: 'iot-protocol', component: IotProtocolComponent },
             { path: 'iot-thing-info', component: IotThingInfoComponent },
             { path: 'iot-flow', component: IotFlowComponent },
-            { path: 'device-detail', component: DeviceDetailComponent },
             { path: 'logout', component: LogoutComponent },
         ],
         canActivateChild: [AuthGuard]

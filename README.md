@@ -1,3 +1,9 @@
+Source Code: [https://github.com/minhlong/Angular4-AWS-Cognito-IAM-API-Lambda-IoT](https://github.com/minhlong/Angular4-AWS-Cognito-IAM-API-Lambda-IoT)
+
+Demo: [https://minhlong.github.io/Angular4-AWS-Cognito-IAM-API-Lambda-IoT](https://minhlong.github.io/Angular4-AWS-Cognito-IAM-API-Lambda-IoT)
+
+Username: demo | Password: 123456789
+
 # Bài Toán
 
 Mình đang làm dự án về `IoT (Internet of ThingS)`, công ty hiện đã làm xong thiết bị và bây giờ họ muốn xây dựng một hệ thống để quản-lý/sử-dụng thiết bị đó. Nhưng nếu phải xây dựng từ đầu thì mất rất nhiều chi phí... Nào là máy chủ, lập trình viên, chi phí bảo trì... Và có một giải pháp lúc này là sử dụng `Amazon Web Services (AWS)`
