@@ -1,25 +1,42 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
-    <div class="sidebar-collapse">
-        <ul class="nav metismenu" id="side-menu">
-            <li class="nav-header">
-                <div class="dropdown profile-element">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="block m-t-xs"> <strong class="font-bold">Example user</strong> </span>
-                        <span class="text-muted text-xs block">Example <b class="caret"></b> </span>
-                    </a>
-                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li>
-                            <a [routerLink]="['/logout']">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="logo-element">
-                    Vir+
-                </div>
-            </li>
-            <li [ngClass]="{active: activeRoute('home')}">
-                <a [routerLink]="['/home']"><i class="fa fa-th-large"></i> <span class="nav-label">Main view</span></a>
-            </li>
-        </ul>
-    </div>
+  <div class="sidebar-collapse">
+    <ul class="nav metismenu" id="side-menu">
+      <li class="nav-header">
+        <div class="dropdown profile-element">
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <span class="clear"> 
+              <span class="block m-t-xs"> <strong class="font-bold">AWS Demo IoT</strong></span>
+              <span class="text-muted text-xs block">{{userInfo.email}} <b class="caret"></b></span> 
+            </span>
+          </a>
+          <ul class="dropdown-menu animated fadeInRight m-t-xs">
+            <li><a href="#">Link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Link</a></li>
+          </ul>
+        </div>
+        <div class="logo-element">
+          Vir+
+        </div>
+      </li>
+      <li [ngClass]="{active: activeRoute('home')}">
+        <a [routerLink]="['/home']"><i class="fa fa-th-large"></i> <span class="nav-label">Home</span></a>
+      </li>
+      <li [ngClass]="{active: activeRoute('api')}">
+        <a [routerLink]="['/api']"><i class="fa fa-openid"></i> <span class="nav-label">API Getway</span></a>
+      </li>
+      <li [ngClass]="{active: activeRoute('iot-protocol')}">
+        <a [routerLink]="['/iot-protocol']"><i class="fa fa-podcast"></i> <span class="nav-label">IoT Shadow Protocol</span></a>
+      </li>
+      <li [ngClass]="{active: activeRoute('iot-thing-info')}">
+        <a [routerLink]="['/iot-thing-info']"><i class="fa fa-info"></i> <span class="nav-label">IoT Thing Info</span></a>
+      </li>
+      <li [ngClass]="{active: activeRoute('iot-flow')}">
+        <a [routerLink]="['/iot-flow']"><i class="fa fa-ge"></i> <span class="nav-label">IoT Work Flow</span></a>
+      </li>
+      <li [ngClass]="{active: activeRoute('device-detail')}">
+        <a [routerLink]="['/device-detail']"><i class="fa fa-gears"></i> <span class="nav-label">Intelligent Storage</span></a>
+      </li>
+    </ul>
+  </div>
 </nav>

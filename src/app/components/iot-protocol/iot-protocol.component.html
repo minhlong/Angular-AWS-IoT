@@ -1,0 +1,74 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          RestFUL Protocol (Thing Name: {{ioT.restFul.thingName}})
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <tbody>
+                <tr>
+                  <th style="width: 200px">Current State</th>
+                  <td>
+                    <div *ngIf="isLoading" class="sk-spinner sk-spinner-three-bounce">
+                      <div class="sk-bounce1"></div>
+                      <div class="sk-bounce2"></div>
+                      <div class="sk-bounce3"></div>
+                    </div>
+                    <div [hidden]="isLoading" id="jeShadowRestFData"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <th style="width: 200px">New Shadow State</th>
+                  <td>
+                    <div id="jeShadowRestF"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel-footer text-center">
+          <button *ngIf="!isLoading" (click)="updateIoT()" class="btn btn-sm btn-success" type="button">Update</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          MQTT Protocol (Thing Name: {{ioT.restFul.thingName}})
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <tbody>
+                <tr>
+                  <th style="width: 200px">Current State</th>
+                  <td>
+                    <div *ngIf="isLoading" class="sk-spinner sk-spinner-three-bounce">
+                      <div class="sk-bounce1"></div>
+                      <div class="sk-bounce2"></div>
+                      <div class="sk-bounce3"></div>
+                    </div>
+                    <div [hidden]="isLoading" id="jeShadowMQTTData"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <th style="width: 200px">New Shadow State</th>
+                  <td>
+                    <div id="jeShadow"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel-footer text-center">
+          <button *ngIf="!isLoading" (click)="updateIoT(true)" class="btn btn-sm btn-danger" type="button">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

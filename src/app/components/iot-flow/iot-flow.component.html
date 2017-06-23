@@ -1,0 +1,88 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1>
+        *** {{thingName}} ***
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-sx-12">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              Device Emulator
+            </div>
+            <div class="panel-footer text-center">
+              <div class="row">
+                <div *ngIf="isLoading" class="sk-spinner sk-spinner-three-bounce">
+                  <div class="sk-bounce1"></div>
+                  <div class="sk-bounce2"></div>
+                  <div class="sk-bounce3"></div>
+                </div>
+                <a [routerLink]="['/iot-emulator']" *ngIf="!isLoading" class="btn btn-sm btn-success" target="_blank">
+                  Create A Device
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sx-12">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              Application From Client
+            </div>
+            <div class="panel-body">
+              <div *ngIf="isLoading" class="sk-spinner sk-spinner-three-bounce">
+                <div class="sk-bounce1"></div>
+                <div class="sk-bounce2"></div>
+                <div class="sk-bounce3"></div>
+              </div>
+              <div class="row" *ngIf="!isLoading">
+                <div class="col-md-12">
+                  <form class="form-horizontal text-center">
+                    <div class="form-group">
+                      <div class="col-xs-4">
+                        <button (click)="dvUpdateState('red')" class="btn btn-sm btn-danger" type="button">
+                          Color Red
+                        </button>
+                      </div>
+                      <div class="col-xs-4">
+                        <button (click)="dvUpdateState('green')" class="btn btn-sm btn-primary" type="button">
+                          Color Green
+                        </button>
+                      </div>
+                      <div class="col-xs-4">
+                        <button (click)="dvUpdateState('blue')" class="btn btn-sm btn-success" type="button">
+                          Color Blue
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          AWS IoT Shadow
+        </div>
+        <div class="panel-body">
+          <div *ngIf="isLoading" class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+          </div>
+          <div [hidden]="isLoading" id="jeIoTShadow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

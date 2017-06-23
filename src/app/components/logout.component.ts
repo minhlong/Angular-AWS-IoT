@@ -1,31 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoggedInCallback, CognitoAuthService } from './../services/cognito-auth.service';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import { AppState } from '../store/reducers/index';
+import { AuthActions } from './../store/actions/auth.action';
 
 @Component({
   selector: 'app-logout',
   template: ''
 })
-export class LogoutComponent implements LoggedInCallback {
-
+export class LogoutComponent {
   constructor(
-    public router: Router,
-    public authService: CognitoAuthService
+    private authActions: AuthActions,
+    private store: Store<AppState>
   ) {
-    this.authService.isAuthenticated(this)
-  }
-
-  /**
-   * Callback after check authentication on Init time
-   *
-   * @param message
-   * @param isLoggedIn
-   */
-  isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.authService.logout();
-    }
-
-    this.router.navigate(['/login']);
+    this.store.dispatch(this.authActions.logout());
   }
 }

@@ -1,10 +1,17 @@
 export const environment = {
   production: true,
 
-  region: 'Your Information',
-  identityPoolId: 'Your Information',
-  userPoolId: 'Your Information',
-  clientId: 'Your Information',
+  // =========================================
 
-  API_URL: 'Your Information'
+  region: '',
+  identityPoolId: '',
+  userPoolId: '',
+  clientId: '',
+  principalId: '',
+
+  APIGateway_URL: '',
+
+  ioTRestFURL: '',
+  ioTThingName: '',
+  ioTPolicyName: '',
 };

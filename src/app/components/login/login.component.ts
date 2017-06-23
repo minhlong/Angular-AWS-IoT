@@ -1,66 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoggedInCallback, CognitoAuthService } from './../../services/cognito-auth.service';
+import { Component, OnDestroy } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
+
+import { AuthSelector } from '../../store/auth.selector';
+import { AppState } from '../../store/reducers/index';
+import { AuthActions } from './../../store/actions/auth.action';
 
 @Component({
   selector: 'app-login-component',
   templateUrl: 'login.template.html'
 })
+export class LoginComponent implements OnDestroy {
+  login: { email?: string, password?: string } = {};
+  isLoading = false;
+  errorMessage: string;
 
-export class LoginComponent implements LoggedInCallback, OnInit {
-  public email: string;
-  public password: string;
-  public errorMessage: string;
+  private handleLoading: Subscription;
+  private handleErr: Subscription;
 
   constructor(
-    public router: Router,
-    public authService: CognitoAuthService
-  ) { }
+    private authActions: AuthActions,
+    private store: Store<AppState>
+  ) {
+    this.handleLoading = this.store.let(AuthSelector.isLoading()).subscribe(res => {
+      this.isLoading = res
+    });
 
-  ngOnInit() {
-    this.errorMessage = null;
-
-    // Checking if the user is already authenticated.
-    // If so, then redirect to the secure  site
-    this.authService.isAuthenticated(this);
+    this.handleErr = this.store.let(AuthSelector.getErrorMessage()).subscribe(err => {
+      this.errorMessage = err
+    });
   }
 
   /**
    * User submit login form
    */
-  onLogin() {
-    if (this.email == null || this.password == null) {
-      this.errorMessage = 'All fields are required';
-      return;
-    }
-
-    this.errorMessage = 'loading ...';
-    this.authService.authenticate(this.email, this.password, this);
-  }
-
-  /**
-   * Callback after click login for check authentication
-   *
-   * @param message
-   * @param result
-   */
-  cognitoCallback(message: string, result: any) {
-    if (message != null) {
-      this.errorMessage = message;
-    } else {
-      this.router.navigate(['/home']);
+  onLogin(form: NgForm) {
+    if (form.valid) {
+      this.store.dispatch(this.authActions.auth(this.login.email, this.login.password));
     }
   }
 
-  /**
-   * Callback after check authentication on Init time
-   *
-   * @param message
-   * @param isLoggedIn
-   */
-  isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.router.navigate(['/home']);
-    }
+  ngOnDestroy() {
+    this.handleLoading.unsubscribe();
+    this.handleErr.unsubscribe();
   }
 }
