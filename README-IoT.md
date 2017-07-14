@@ -6,7 +6,7 @@ Username: demo | Password: 123456789
 - Source code được build trên Angular 2 ... sau khi deploy thì chỉ còn là html + javscript nên bạn có thể host lên bất cứ đâu
 - Trong bài này mình có nói về thiết bị phần cứng. Bạn đừng quá bận tâm vì mình đã làm thiết bị giả lập (Emulator) trong bài này
 
-![ScreenShot](/screeenshot.png?raw=true)
+![ScreenShot](https://github.com/minhlong/Angular4-AWS-Cognito-IAM-API-Lambda-IoT/raw/master/screeenshot.png?raw=true)
 
 # Đặt Vấn Đề
 Mình mới làm xong 1 thiết bị đèn thông minh, thiết bị này có thể:
@@ -25,7 +25,7 @@ Thay vì phải tốn rất nhiều chi phí chỉ để thử nghiệm thiết 
 
 # Giải Pháp
 
-![bulb](/readme/aws-iot-bulb.jpg)
+![bulb](https://github.com/minhlong/Angular4-AWS-Cognito-IAM-API-Lambda-IoT/raw/master/readme/aws-iot-bulb.jpg)
 
 Process làm việc là như sau: 
 
@@ -208,7 +208,7 @@ Một tiện ích của Rule rất hay đó là nó cho phép mình viết `Bả
 # Kết
 Khi mới bắt đầu với AWS IoT, mọi thứ tưởng chừng phức tạp, nhưng khi tìm hiểu rõ bạn sẽ thấy nó rất đơn giản. Chỉ cần bỏ chút thời gian để cấu hình và vẽ working process cho hệ thống. AWS IoT hỗ trợ rule và policy rất mạnh. Hầu như có thể cover được mọi tình huống cho người dùng về mặt bảo mật và phân quyền...
 
-![ScreenShot](/screeenshot.png?raw=true)
+![ScreenShot](https://github.com/minhlong/Angular4-AWS-Cognito-IAM-API-Lambda-IoT/raw/master/screeenshot.png?raw=true)
 
 # Tài Liệu Tham Khảo
 - http://docs.aws.amazon.com
