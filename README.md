@@ -1,3 +1,5 @@
+Please refer wiki page for more information
+
 Demo: [https://minhlong.github.io/Angular4-AWS-Cognito-IAM-API-Lambda-IoT](https://minhlong.github.io/Angular4-AWS-Cognito-IAM-API-Lambda-IoT)
 
 Username: demo | Password: 123456789
